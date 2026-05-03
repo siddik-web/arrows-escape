@@ -1,73 +1,86 @@
-# React + TypeScript + Vite
+# Arrows Escape
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, grid-based puzzle game built with React, TypeScript, and Vite. 
 
-Currently, two official plugins are available:
+Players navigate through progressively challenging levels, manage resources like Shards, and can customize their experience through a built-in shop and various thematic settings.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Technologies Used
 
-## React Compiler
+- **React** for the UI and component architecture
+- **TypeScript** for robust type-safety
+- **Vite** for blazing fast builds and development
+- **Tailwind CSS** for styling and layout
+- **Framer Motion** for smooth, complex animations
+- **Firebase** for backend player state management
+- **Lucide React** for beautiful iconography
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎮 Features
 
-## Expanding the ESLint configuration
+- **Dynamic Grid Puzzles**: A canvas-based interactive grid that scales in complexity based on the level.
+- **Game Engine**: Custom hook-based (`useGameEngine`) game logic handling interactions, mechanics, deadlocks, and hints.
+- **Player State & Progression**: Persistent tracking of highest unlocked levels, acquired shards, and equipped skins.
+- **Shop System**: Spend earned shards to unlock new aesthetics.
+- **Customization**: Toggleable settings for sound, haptics, particles, and multiple visual themes.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. Clone the repository and navigate to the project directory:
+   ```bash
+   cd games
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🏗️ Build
+
+To create a production build, run:
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+You can preview the built app using:
+```bash
+npm run preview
 ```
+
+## 📂 Project Structure
+
+```
+src/
+├── components/
+│   ├── Canvas/      # Game grid rendering
+│   ├── HUD/         # Heads-up display components (Lives, Top HUD)
+│   └── Modals/      # UI overlays (Shop, Settings, Win, Fail, Levels)
+├── constants/       # Game configuration, themes, cost settings
+├── hooks/           # Core logic (useGameEngine, usePlayerState)
+├── lib/             # Utility integrations (Firebase, Audio)
+├── types/           # TypeScript definitions
+├── App.tsx          # Main application container
+└── main.tsx         # Entry point
+```
+
+## 🛠️ Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Compiles TypeScript and builds the app for production.
+- `npm run lint`: Runs ESLint to check for code quality issues.
+- `npm run preview`: Previews the production build locally.
+- `npm run deploy`: Builds and deploys the app using gh-pages.
+
+## 📄 License
+
+This project is private and intended for personal development/portfolio use.
