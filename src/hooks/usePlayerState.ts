@@ -5,7 +5,7 @@ import { auth, db, appId } from '../lib/firebase';
 import type { PlayerState } from '../types/game';
 
 const initialState: PlayerState = {
-  maxUnlockedLevel: 1,
+  maxUnlockedLevel: 15,
   shards: 500,
   unlockedSkins: ["classic"],
   equippedSkin: "classic",

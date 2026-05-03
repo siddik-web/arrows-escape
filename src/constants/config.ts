@@ -41,3 +41,18 @@ export const SHOP_ITEMS = {
 export const REVIVE_COST = 500;
 export const COMBO_TIMEOUT = 2000;
 export const TOTAL_LEVELS = 100;
+
+export const ARROW_TYPES_CONFIG = {
+  BOMB: { color: '#EF4444' },
+  ICE: { color: '#A5F3FC', taps: 2 },
+  STONE: { color: '#78716C' },
+  LOCK: { color: '#F59E0B' },
+  KEY: { color: '#FBBF24' },
+};
+
+export const CHALLENGE_THRESHOLDS = {
+  BOMB: 3,
+  ICE: 5,
+  STONE: 8,
+  LOCK_KEY: 10,
+};

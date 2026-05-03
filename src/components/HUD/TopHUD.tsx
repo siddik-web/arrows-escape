@@ -10,9 +10,11 @@ interface TopHUDProps {
   onOpenSettings: () => void;
   onOpenLevels: () => void;
   onHint: () => void;
+  timeLeft: number;
+  isTimerActive: boolean;
 }
 
-const TopHUD: React.FC<TopHUDProps> = ({ level, shards, combo, onOpenShop, onOpenSettings, onOpenLevels, onHint }) => {
+const TopHUD: React.FC<TopHUDProps> = ({ level, shards, combo, onOpenShop, onOpenSettings, onOpenLevels, onHint, timeLeft, isTimerActive }) => {
   return (
     <header className="p-4 flex flex-col gap-4 fixed top-0 w-full z-10 select-none">
       <div className="flex justify-between items-center w-full">
@@ -37,9 +39,23 @@ const TopHUD: React.FC<TopHUDProps> = ({ level, shards, combo, onOpenShop, onOpe
           <h1 className="text-xl font-bold tracking-widest text-white drop-shadow-md">
             LEVEL {level}
           </h1>
-          <AnimatePresence>
-            {combo > 1 && (
+          <AnimatePresence mode="wait">
+            {isTimerActive ? (
+              <motion.div
+                key="timer"
+                initial={{ opacity: 0, scale: 0.5, y: -10 }}
+                animate={{ opacity: 1, scale: 1.2, y: 0 }}
+                exit={{ opacity: 0, scale: 0.5, y: -10 }}
+                className="flex items-center gap-2 mt-1"
+              >
+                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]" />
+                <span className="text-sm font-black tracking-widest text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                  {timeLeft.toFixed(1)}s
+                </span>
+              </motion.div>
+            ) : combo > 1 ? (
               <motion.span
+                key="combo"
                 initial={{ opacity: 0, scale: 0.5, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.5, y: -10 }}
@@ -47,7 +63,7 @@ const TopHUD: React.FC<TopHUDProps> = ({ level, shards, combo, onOpenShop, onOpe
               >
                 COMBO x{combo}
               </motion.span>
-            )}
+            ) : null}
           </AnimatePresence>
         </div>
         

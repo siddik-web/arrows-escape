@@ -12,7 +12,7 @@ export interface Arrow {
   y: number;
   dir: Direction;
   color: string;
-  type: 'normal' | 'bomb';
+  type: 'normal' | 'bomb' | 'ice' | 'lock' | 'key' | 'stone';
   status: 'active' | 'leaving';
   animProgress: number;
   blocked: boolean;
@@ -21,6 +21,8 @@ export interface Arrow {
   spinAngle: number;
   forceUnblocked: boolean;
   isHinted?: boolean;
+  tapsRequired?: number; // for ice arrows
+  locked?: boolean;      // for lock arrows
 }
 
 export interface Particle {
