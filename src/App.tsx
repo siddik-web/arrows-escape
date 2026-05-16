@@ -83,6 +83,8 @@ const App: React.FC = () => {
         onOpenSettings={() => setModals(m => ({ ...m, settings: true }))}
         onOpenLevels={() => setModals(m => ({ ...m, levels: true }))}
         onHint={triggerHint}
+        timeLeft={gameState.timeLeft}
+        isTimerActive={gameState.isTimerActive}
       />
 
       <main className="flex-grow relative flex items-center justify-center">

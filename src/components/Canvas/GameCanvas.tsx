@@ -75,6 +75,18 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, skin, cellSize, offs
     ctx.lineCap = "round";
     ctx.lineWidth = cellSize * 0.15;
 
+    if (arrow.type === 'stone') {
+      // Draw stone block instead of an arrow
+      const sSize = cellSize * 0.6;
+      ctx.fillStyle = arrow.color;
+      ctx.fillRect(-sSize/2, -sSize/2, sSize, sSize);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255,255,255,0.2)";
+      ctx.strokeRect(-sSize/2, -sSize/2, sSize, sSize);
+      ctx.restore();
+      return;
+    }
+
     ctx.beginPath();
     if (skin === 'stealth') {
       ctx.moveTo(length / 2, 0);
@@ -100,6 +112,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, skin, cellSize, offs
       ctx.stroke();
     }
 
+    // Additions for special types
     if (arrow.type === 'bomb') {
       ctx.beginPath();
       ctx.arc(0, 0, cellSize * 0.1, 0, Math.PI * 2);
@@ -107,7 +120,74 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, skin, cellSize, offs
       ctx.shadowColor = "#fff";
       ctx.shadowBlur = 10 + Math.sin(time * 0.01) * 5;
       ctx.fill();
+    } else if (arrow.type === 'ice') {
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.fillRect(-cellSize * 0.3, -cellSize * 0.3, cellSize * 0.6, cellSize * 0.6);
+      if (arrow.tapsRequired === 1) {
+        // Draw cracks
+        ctx.beginPath();
+        ctx.moveTo(-cellSize * 0.2, -cellSize * 0.2);
+        ctx.lineTo(0, 0);
+        ctx.lineTo(cellSize * 0.1, -cellSize * 0.15);
+        ctx.moveTo(0, 0);
+        ctx.lineTo(cellSize * 0.2, cellSize * 0.2);
+        ctx.strokeStyle = "rgba(255,255,255,0.8)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    } else if (arrow.type === 'lock') {
+      // Premium Padlock
+      ctx.translate(0, cellSize * 0.05);
+      // Body
+      const bodyGrad = ctx.createLinearGradient(-cellSize*0.15, -cellSize*0.1, cellSize*0.15, cellSize*0.1);
+      bodyGrad.addColorStop(0, "#94a3b8");
+      bodyGrad.addColorStop(0.5, "#475569");
+      bodyGrad.addColorStop(1, "#1e293b");
+      ctx.fillStyle = bodyGrad;
+      ctx.beginPath();
+      ctx.roundRect(-cellSize*0.15, -cellSize*0.1, cellSize*0.3, cellSize*0.25, 4);
+      ctx.fill();
+      // Shackle
+      ctx.beginPath();
+      ctx.arc(0, -cellSize*0.1, cellSize*0.1, Math.PI, 0);
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = cellSize * 0.05;
+      ctx.stroke();
+      // Keyhole
+      ctx.fillStyle = "#000";
+      ctx.beginPath();
+      ctx.arc(0, 0, cellSize*0.03, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillRect(-cellSize*0.01, 0, cellSize*0.02, cellSize*0.08);
+    } else if (arrow.type === 'key') {
+      // Premium Key
+      ctx.translate(-cellSize * 0.05, 0);
+      const keyColor = "#fde047";
+      ctx.strokeStyle = keyColor;
+      ctx.fillStyle = keyColor;
+      ctx.lineWidth = cellSize * 0.04;
+      ctx.lineCap = "round";
+      // Head
+      ctx.beginPath();
+      ctx.arc(-cellSize*0.12, 0, cellSize*0.1, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(-cellSize*0.12, 0, cellSize*0.03, 0, Math.PI*2);
+      ctx.fill();
+      // Shaft
+      ctx.beginPath();
+      ctx.moveTo(-cellSize*0.02, 0);
+      ctx.lineTo(cellSize*0.22, 0);
+      ctx.stroke();
+      // Teeth
+      ctx.beginPath();
+      ctx.moveTo(cellSize*0.12, 0);
+      ctx.lineTo(cellSize*0.12, cellSize*0.08);
+      ctx.moveTo(cellSize*0.18, 0);
+      ctx.lineTo(cellSize*0.18, cellSize*0.06);
+      ctx.stroke();
     }
+
     ctx.restore();
   };
 
